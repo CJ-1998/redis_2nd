@@ -53,25 +53,11 @@ public class MovieService {
             for (Map.Entry<String, List<Screening>> entry : cinemaNameScreening.entrySet()) {
                 String cinemaName = entry.getKey();
                 List<Screening> screenings = entry.getValue();
-                NowPlayMovieDto nowPlayMovieDto = makeNowPlayMovieDto(movie, cinemaName, screenings);
+                NowPlayMovieDto nowPlayMovieDto = NowPlayMovieDto.of(movie, cinemaName, screenings);
                 nowPlayMovieDtos.add(nowPlayMovieDto);
             }
         }
         return nowPlayMovieDtos;
-    }
-
-
-    public NowPlayMovieDto makeNowPlayMovieDto(Movie movie, String cinemaName, List<Screening> screenings) {
-        return NowPlayMovieDto.builder()
-                .movieName(movie.getTitle())
-                .movieRate(movie.getRating().getMovieRateDescription())
-                .movieReleaseDate(movie.getReleasedAt())
-                .movieThumbnailImage(movie.getThumbnail())
-                .movieRunningTime(movie.getDuration())
-                .movieGenre(movie.getGenre().getMovieGenreDescription())
-                .cinemaName(cinemaName)
-                .screenings(screenings)
-                .build();
     }
 
 }

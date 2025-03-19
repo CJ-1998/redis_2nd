@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import project.redis.movie.Movie;
 import project.redis.screening.Screening;
 
 @Getter
@@ -24,4 +25,17 @@ public class NowPlayMovieDto {
     private String movieGenre;
     private String cinemaName;
     private List<Screening> screenings;
+
+    public static NowPlayMovieDto of(Movie movie, String cinemaName, List<Screening> screenings) {
+        return NowPlayMovieDto.builder()
+                .movieName(movie.getTitle())
+                .movieRate(movie.getRating().getMovieRateDescription())
+                .movieReleaseDate(movie.getReleasedAt())
+                .movieThumbnailImage(movie.getThumbnail())
+                .movieRunningTime(movie.getDuration())
+                .movieGenre(movie.getGenre().getMovieGenreDescription())
+                .cinemaName(cinemaName)
+                .screenings(screenings)
+                .build();
+    }
 }
