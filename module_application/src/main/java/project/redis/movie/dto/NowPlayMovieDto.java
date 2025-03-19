@@ -1,6 +1,6 @@
 package project.redis.movie.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import project.redis.screening.Screening;
 public class NowPlayMovieDto {
     private String movieName;
     private String movieRate;
-    private LocalDateTime movieReleaseDate;
+    private LocalDate movieReleaseDate;
     private String movieThumbnailImage;
     private Integer movieRunningTime;
     private String movieGenre;

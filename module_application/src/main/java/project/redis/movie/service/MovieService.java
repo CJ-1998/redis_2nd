@@ -1,6 +1,6 @@
 package project.redis.movie.service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +33,7 @@ public class MovieService {
     }
 
     public List<Movie> findNowPlayingMovies(List<Movie> movies) {
-        LocalDateTime today = LocalDateTime.now();
+        LocalDate today = LocalDate.now();
 
         return movies.stream()
                 .filter(movie -> movie.isReleasedBefore(today))
@@ -45,7 +45,7 @@ public class MovieService {
         List<NowPlayMovieDto> nowPlayMovieDtos = new ArrayList<>();
         for (Movie movie : movies) {
             // 영화 이름이 같을 수도 있지 않나...?
-            List<Screening> movieAllScreening = screeningAdapter.findScreeningsByMovieName(movie.getMovieName());
+            List<Screening> movieAllScreening = screeningAdapter.findScreeningsByMovieName(movie.getTitle());
 
             Map<String, List<Screening>> cinemaNameScreening = movieAllScreening.stream()
                     .collect(Collectors.groupingBy(Screening::getCinemaName));
@@ -63,12 +63,12 @@ public class MovieService {
 
     public NowPlayMovieDto makeNowPlayMovieDto(Movie movie, String cinemaName, List<Screening> screenings) {
         return NowPlayMovieDto.builder()
-                .movieName(movie.getMovieName())
-                .movieRate(movie.getMovieRate().getMovieRateDescription())
-                .movieReleaseDate(movie.getMovieReleaseDate())
-                .movieThumbnailImage(movie.getMovieThumbnailImage())
-                .movieRunningTime(movie.getMovieRunningTime())
-                .movieGenre(movie.getMovieGenre().getMovieGenreDescription())
+                .movieName(movie.getTitle())
+                .movieRate(movie.getRating().getMovieRateDescription())
+                .movieReleaseDate(movie.getReleasedAt())
+                .movieThumbnailImage(movie.getThumbnail())
+                .movieRunningTime(movie.getDuration())
+                .movieGenre(movie.getGenre().getMovieGenreDescription())
                 .cinemaName(cinemaName)
                 .screenings(screenings)
                 .build();

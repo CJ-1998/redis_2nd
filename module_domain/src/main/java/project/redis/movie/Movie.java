@@ -1,6 +1,6 @@
 package project.redis.movie;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,24 +9,24 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Movie {
 
-    private String movieName;
-    private MovieRate movieRate;
-    private LocalDateTime movieReleaseDate;
-    private String movieThumbnailImage;
-    private Integer movieRunningTime;
-    private MovieGenre movieGenre;
+    private String title;
+    private MovieRate rating;
+    private LocalDate releasedAt;
+    private String thumbnail;
+    private Integer duration;
+    private MovieGenre genre;
 
-    public static Movie of(String movieName, MovieRate movieRate, LocalDateTime movieReleaseDate,
-                           String movieThumbnailImage, Integer movieRunningTime, MovieGenre movieGenre) {
-        return new Movie(movieName, movieRate, movieReleaseDate, movieThumbnailImage, movieRunningTime, movieGenre);
+    public static Movie of(String title, MovieRate rating, LocalDate releasedAt,
+                           String thumbnail, Integer duration, MovieGenre genre) {
+        return new Movie(title, rating, releasedAt, thumbnail, duration, genre);
     }
 
-    public boolean isReleasedBefore(LocalDateTime date) {
-        return movieReleaseDate.isBefore(date);
+    public boolean isReleasedBefore(LocalDate date) {
+        return releasedAt.isBefore(date);
     }
 
     public int compareReleaseDate(Movie movieToCompare) {
-        return movieToCompare.movieReleaseDate.compareTo(this.movieReleaseDate);
+        return movieToCompare.releasedAt.compareTo(this.releasedAt);
     }
 
 }

@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,22 +32,23 @@ public class MovieEntity extends BaseEntity {
     private Long movieId;
 
     @Column(nullable = false)
-    private String movieName;
+    private String title;
 
     @Enumerated(value = STRING)
     @Column(nullable = false)
-    private MovieRate movieRate;
+    private MovieRate rating;
 
     @Column(nullable = false)
-    private LocalDateTime movieReleaseDate;
+    private LocalDate releasedAt;
 
-    private String movieThumbnailImage;
+    @Column(length = 500)
+    private String thumbnail;
 
     @Column(nullable = false)
-    private Integer movieRunningTime;
+    private Integer duration;
 
     @Enumerated(value = STRING)
     @Column(nullable = false)
-    private MovieGenre movieGenre;
+    private MovieGenre genre;
 
 }

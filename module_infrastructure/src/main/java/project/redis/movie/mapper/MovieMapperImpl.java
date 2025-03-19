@@ -8,7 +8,7 @@ import project.redis.movie.entity.MovieEntity;
 public class MovieMapperImpl implements MovieMapper {
     @Override
     public Movie toDomain(MovieEntity movieEntity) {
-        return Movie.of(movieEntity.getMovieName(), movieEntity.getMovieRate(), movieEntity.getMovieReleaseDate(),
-                movieEntity.getMovieThumbnailImage(), movieEntity.getMovieRunningTime(), movieEntity.getMovieGenre());
+        return Movie.of(movieEntity.getTitle(), movieEntity.getRating(), movieEntity.getReleasedAt(),
+                movieEntity.getThumbnail(), movieEntity.getDuration(), movieEntity.getGenre());
     }
 }
