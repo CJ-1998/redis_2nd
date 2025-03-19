@@ -32,7 +32,7 @@ public class MovieService {
         return nowPlayMovieDtos;
     }
 
-    public List<Movie> findNowPlayingMovies(List<Movie> movies) {
+    private List<Movie> findNowPlayingMovies(List<Movie> movies) {
         LocalDate today = LocalDate.now();
 
         return movies.stream()
@@ -41,7 +41,7 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
-    public List<NowPlayMovieDto> makeNowPlayingMoviesInfo(List<Movie> movies) {
+    private List<NowPlayMovieDto> makeNowPlayingMoviesInfo(List<Movie> movies) {
         List<NowPlayMovieDto> nowPlayMovieDtos = new ArrayList<>();
         for (Movie movie : movies) {
             // 영화 이름이 같을 수도 있지 않나...?
