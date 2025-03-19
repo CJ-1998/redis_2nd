@@ -30,10 +30,10 @@ public class ScreeningEntity {
     private Long screeningId;
 
     @Column(nullable = false)
-    private LocalDateTime screeningStartTime;
+    private LocalDateTime startedAt;
 
     @Column(nullable = false)
-    private LocalDateTime screeningEndTime;
+    private LocalDateTime endedAt;
 
     @ManyToOne
     @JoinColumn(name = "movie_id", nullable = false)  // 영화와의 관계 설정

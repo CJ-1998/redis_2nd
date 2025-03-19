@@ -10,11 +10,11 @@ import project.redis.movie.Movie;
 public class Screening {
     private Movie movie;
     private Cinema cinema;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+    private LocalDateTime startedAt;
+    private LocalDateTime endedAt;
 
-    public static Screening of(Movie movie, Cinema cinema, LocalDateTime startTime, LocalDateTime endTime) {
-        return new Screening(movie, cinema, startTime, endTime);
+    public static Screening of(Movie movie, Cinema cinema, LocalDateTime startedAt, LocalDateTime endedAt) {
+        return new Screening(movie, cinema, startedAt, endedAt);
     }
 
     public String getCinemaName() {
