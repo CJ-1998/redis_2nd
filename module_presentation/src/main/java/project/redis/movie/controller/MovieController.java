@@ -17,7 +17,7 @@ public class MovieController {
     private final MovieService movieService;
 
     @GetMapping("/now-playing")
-    public ResponseEntity getNowPlayingMovies() {
+    public ResponseEntity<List<NowPlayMovieDto>> getNowPlayingMovies() {
         List<NowPlayMovieDto> nowPlayMovieDtos = movieService.getNowPlayingMovies();
         return ResponseEntity.ok(nowPlayMovieDtos);
     }
