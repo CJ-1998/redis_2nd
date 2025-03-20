@@ -1,15 +1,17 @@
 spring:
+  application:
+    name: cinema
   datasource:
-    url: jdbc:mysql://localhost:3306/cinemadb   # Docker에서 MySQL이 실행되는 호스트와 포트
+    url: jdbc:mysql://localhost:3305/cinema_db?character_set_server=utf8mb4&connectionCollation=utf8mb4_unicode_ci   # Docker에서 MySQL이 실행되는 호스트와 포트
     username: user                                # Docker Compose에서 설정한 사용자명
     password: 1234                                # Docker Compose에서 설정한 사용자 비밀번호
-    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 드라이버
+    driver-class-name: com.mysql.cj.jdbc.Driver   # MySQL 드라이버
 
   jpa:
     hibernate:
-      ddl-auto: update                            # 테이블 자동 생성 및 업데이트 설정
-    show-sql: true                                # 실행되는 SQL 쿼리 로그 출력
+      ddl-auto: create                            # 테이블 자동 생성 및 업데이트 설정
     properties:
       hibernate:
         format_sql: true                          # SQL 쿼리 포맷팅
+        show-sql: true                            # 실행되는 SQL 쿼리 로그 출력
         dialect: org.hibernate.dialect.MySQL8Dialect
