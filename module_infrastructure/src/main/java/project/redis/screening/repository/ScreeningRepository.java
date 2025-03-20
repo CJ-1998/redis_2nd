@@ -8,5 +8,5 @@ import project.redis.screening.entity.ScreeningEntity;
 @Repository
 public interface ScreeningRepository extends JpaRepository<ScreeningEntity, Long> {
 
-    List<ScreeningEntity> findByMovieName(String movieName);
+    List<ScreeningEntity> findByMovieTitle(String title);
 }

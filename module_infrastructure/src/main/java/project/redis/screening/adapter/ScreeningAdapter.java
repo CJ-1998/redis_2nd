@@ -16,7 +16,7 @@ public class ScreeningAdapter {
     private final ScreeningMapper screeningMapper;
 
     public List<Screening> findScreeningsByMovieName(String movieName) {
-        List<ScreeningEntity> screeningEntities = screeningRepository.findByMovieName(movieName);
+        List<ScreeningEntity> screeningEntities = screeningRepository.findByMovieTitle(movieName);
         return screeningEntities.stream()
                 .map(screeningMapper::toDomain)
                 .toList();
