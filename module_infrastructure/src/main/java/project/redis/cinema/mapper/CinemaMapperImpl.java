@@ -17,9 +17,7 @@ public class CinemaMapperImpl implements CinemaMapper {
 
     @Override
     public Cinema toDomain(CinemaEntity cinemaEntity) {
-        //List<Seat> seats = convertSeatEntitiesToSeats(cinemaEntity.getSeats());
-        //CinemaSeats cinemaSeats = CinemaSeats.create();
-        return Cinema.of(cinemaEntity.getCinemaName());
+        return Cinema.of(cinemaEntity.getCinemaId(), cinemaEntity.getCinemaName());
     }
 
     public List<Seat> convertSeatEntitiesToSeats(List<SeatEntity> seatEntities) {

@@ -9,6 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Movie {
 
+    private Long movieId;
     private String title;
     private MovieRate rating;
     private LocalDate releasedAt;
@@ -16,9 +17,9 @@ public class Movie {
     private Integer duration;
     private MovieGenre genre;
 
-    public static Movie of(String title, MovieRate rating, LocalDate releasedAt,
+    public static Movie of(Long movieId, String title, MovieRate rating, LocalDate releasedAt,
                            String thumbnail, Integer duration, MovieGenre genre) {
-        return new Movie(title, rating, releasedAt, thumbnail, duration, genre);
+        return new Movie(movieId, title, rating, releasedAt, thumbnail, duration, genre);
     }
 
     public boolean isReleasedBefore(LocalDate date) {

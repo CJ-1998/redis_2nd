@@ -20,7 +20,7 @@ public class ScreeningMapperImpl implements ScreeningMapper {
     public Screening toDomain(ScreeningEntity screeningEntity) {
         Movie movie = movieMapper.toDomain(screeningEntity.getMovie());
         Cinema cinema = cinemaMapper.toDomain(screeningEntity.getCinema());
-        return Screening.of(movie, cinema,
+        return Screening.of(screeningEntity.getScreeningId(), movie, cinema,
                 screeningEntity.getStartedAt(), screeningEntity.getEndedAt());
     }
 }

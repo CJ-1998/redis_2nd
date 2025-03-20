@@ -35,7 +35,7 @@ public class CinemaSeats {
     private static Seat createOneSeat(int row, int col) {
         String seatRow = getSeatRow(row);
         Integer setColumn = col + 1;
-        return Seat.of(false, seatRow, setColumn);
+        return Seat.of(null, false, seatRow, setColumn);
     }
 
     private static String getSeatRow(int rowNumber) {

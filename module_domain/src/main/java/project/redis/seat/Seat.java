@@ -6,6 +6,8 @@ import lombok.Getter;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Seat {
+
+    private Long seatId;
     private Boolean isReserved;
 
     @Getter
@@ -13,8 +15,8 @@ public class Seat {
     @Getter
     private Integer seatColumn;
 
-    public static Seat of(Boolean isReserved, String seatRow, Integer seatColumn) {
-        return new Seat(isReserved, seatRow, seatColumn);
+    public static Seat of(Long seatId, Boolean isReserved, String seatRow, Integer seatColumn) {
+        return new Seat(seatId, isReserved, seatRow, seatColumn);
     }
 
     public int compareRow(Seat otherSeat) {
