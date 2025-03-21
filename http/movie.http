@@ -1,0 +1,4 @@
+### 현재 상영 중인 영화 조회 API
+GET localhost:8080/api/v1/movie/now-playing
+
+###
