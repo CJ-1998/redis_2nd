@@ -15,3 +15,8 @@ spring:
         format_sql: true                          # SQL 쿼리 포맷팅
         show-sql: true                            # 실행되는 SQL 쿼리 로그 출력
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+    sql:
+      init:
+        mode: always
+        data-locations: classpath:data.sql

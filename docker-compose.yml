@@ -12,3 +12,5 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "3305:3306"  # 호스트의 3305 포트를 컨테이너의 3306 포트와 연결
+    volumes:
+      - ./init:/docker-entrypoint-initdb.d
