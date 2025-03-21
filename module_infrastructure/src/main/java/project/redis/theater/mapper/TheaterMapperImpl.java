@@ -1,8 +1,7 @@
 package project.redis.theater.mapper;
 
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import project.redis.cinema.Cinema;
 import project.redis.cinema.entity.CinemaEntity;
@@ -14,17 +13,11 @@ import project.redis.theater.Theater;
 import project.redis.theater.entity.TheaterEntity;
 
 @Component
+@RequiredArgsConstructor
 public class TheaterMapperImpl implements TheaterMapper {
 
     private final SeatMapper seatMapper;
     private final CinemaMapper cinemaMapper;
-
-
-    @Autowired
-    public TheaterMapperImpl(SeatMapper seatMapper, @Lazy CinemaMapper cinemaMapper) {
-        this.seatMapper = seatMapper;
-        this.cinemaMapper = cinemaMapper;
-    }
 
     @Override
     public Theater toDomain(TheaterEntity theaterEntity) {
