@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.redis.common.entity.BaseEntity;
 import project.redis.movie.entity.MovieEntity;
 import project.redis.theater.entity.TheaterEntity;
 
@@ -23,7 +24,7 @@ import project.redis.theater.entity.TheaterEntity;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ScreeningEntity {
+public class ScreeningEntity extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project.redis.common.entity.BaseEntity;
 import project.redis.theater.entity.TheaterEntity;
 
 @Entity
@@ -21,7 +22,7 @@ import project.redis.theater.entity.TheaterEntity;
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CinemaEntity {
+public class CinemaEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cinemaId;
