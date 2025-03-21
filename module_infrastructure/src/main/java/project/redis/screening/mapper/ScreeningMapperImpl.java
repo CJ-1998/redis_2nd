@@ -19,7 +19,7 @@ public class ScreeningMapperImpl implements ScreeningMapper {
     @Override
     public Screening toDomain(ScreeningEntity screeningEntity) {
         Movie movie = movieMapper.toDomain(screeningEntity.getMovie());
-        Theater theater = theaterMapper.toDomain(screeningEntity.getCinema());
+        Theater theater = theaterMapper.toDomain(screeningEntity.getTheater());
         return Screening.of(screeningEntity.getScreeningId(), movie, theater,
                 screeningEntity.getStartedAt(), screeningEntity.getEndedAt());
     }

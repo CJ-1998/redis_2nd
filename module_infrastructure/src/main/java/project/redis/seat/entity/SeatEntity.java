@@ -37,6 +37,6 @@ public class SeatEntity {
     private Integer seatColumn;
 
     @ManyToOne
-    @JoinColumn(name = "cinema_id")  // 외래 키 설정
-    private TheaterEntity cinema;
+    @JoinColumn(name = "theater_id")
+    private TheaterEntity theater;
 }

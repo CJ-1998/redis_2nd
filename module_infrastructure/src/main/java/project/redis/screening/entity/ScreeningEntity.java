@@ -40,6 +40,6 @@ public class ScreeningEntity {
     private MovieEntity movie;
 
     @ManyToOne
-    @JoinColumn(name = "cinema_id", nullable = false)  // 영화관과의 관계 설정
-    private TheaterEntity cinema;
+    @JoinColumn(name = "theater_id", nullable = false)  // 영화관과의 관계 설정
+    private TheaterEntity theater;
 }
