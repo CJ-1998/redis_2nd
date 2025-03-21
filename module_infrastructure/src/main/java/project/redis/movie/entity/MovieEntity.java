@@ -16,6 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import project.redis.common.entity.BaseEntity;
+import project.redis.movie.Movie;
 import project.redis.movie.MovieGenre;
 import project.redis.movie.MovieRate;
 
@@ -50,5 +51,17 @@ public class MovieEntity extends BaseEntity {
     @Enumerated(value = STRING)
     @Column(nullable = false)
     private MovieGenre genre;
+
+    public static MovieEntity of(Movie movie) {
+        return MovieEntity.builder()
+                .movieId(movie.getMovieId())
+                .title(movie.getTitle())
+                .rating(movie.getRating())
+                .releasedAt(movie.getReleasedAt())
+                .thumbnail(movie.getThumbnail())
+                .duration(movie.getDuration())
+                .genre(movie.getGenre())
+                .build();
+    }
 
 }

@@ -12,4 +12,9 @@ public class MovieMapperImpl implements MovieMapper {
                 movieEntity.getReleasedAt(), movieEntity.getThumbnail(), movieEntity.getDuration(),
                 movieEntity.getGenre());
     }
+
+    @Override
+    public MovieEntity toEntity(Movie movie) {
+        return MovieEntity.of(movie);
+    }
 }
