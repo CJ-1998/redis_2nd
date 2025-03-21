@@ -7,7 +7,12 @@ spring:
     password: 1234                                # Docker Compose에서 설정한 사용자 비밀번호
     driver-class-name: com.mysql.cj.jdbc.Driver   # MySQL 드라이버
 
+  sql:
+    init:
+      mode: always
+
   jpa:
+    defer-datasource-initialization: true
     hibernate:
       ddl-auto: create                            # 테이블 자동 생성 및 업데이트 설정
     properties:
@@ -16,7 +21,3 @@ spring:
         show-sql: true                            # 실행되는 SQL 쿼리 로그 출력
         dialect: org.hibernate.dialect.MySQL8Dialect
 
-    sql:
-      init:
-        mode: always
-        data-locations: classpath:data.sql
