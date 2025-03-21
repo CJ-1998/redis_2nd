@@ -43,8 +43,7 @@ public class MovieService {
 
             Map<String, List<Screening>> cinemaNameScreening = mapByCinemaName(movieAllScreening);
 
-            NowPlayMovieDto nowPlayMovieDto = createNowPlayMovieDtoByMap(movie, cinemaNameScreening);
-            nowPlayMovieDtos.add(nowPlayMovieDto);
+            createNowPlayMovieDtoByMap(movie, cinemaNameScreening, nowPlayMovieDtos);
         }
         return nowPlayMovieDtos;
     }
@@ -54,11 +53,13 @@ public class MovieService {
                 .collect(Collectors.groupingBy(Screening::getCinemaName));
     }
 
-    private NowPlayMovieDto createNowPlayMovieDtoByMap(Movie movie, Map<String, List<Screening>> cinemaNameScreening) {
+    private void createNowPlayMovieDtoByMap(Movie movie, Map<String, List<Screening>> cinemaNameScreening,
+                                            List<NowPlayMovieDto> nowPlayMovieDtos) {
         for (Map.Entry<String, List<Screening>> entry : cinemaNameScreening.entrySet()) {
             String cinemaName = entry.getKey();
             List<Screening> screenings = entry.getValue();
-            return NowPlayMovieDto.of(movie, cinemaName, screenings);
+            NowPlayMovieDto nowPlayMovieDto = NowPlayMovieDto.of(movie, cinemaName, screenings);
+            nowPlayMovieDtos.add(nowPlayMovieDto);
         }
     }
 
