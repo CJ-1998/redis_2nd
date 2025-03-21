@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.redis.cinema.entity.CinemaEntity;
+import project.redis.theater.entity.TheaterEntity;
 
 @Entity
 @Table(name = "seat")
@@ -38,5 +38,5 @@ public class SeatEntity {
 
     @ManyToOne
     @JoinColumn(name = "cinema_id")  // 외래 키 설정
-    private CinemaEntity cinema;
+    private TheaterEntity cinema;
 }

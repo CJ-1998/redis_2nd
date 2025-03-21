@@ -1,23 +1,23 @@
-package project.redis.cinema.mapper;
+package project.redis.theater.mapper;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import project.redis.cinema.Cinema;
-import project.redis.cinema.entity.CinemaEntity;
 import project.redis.seat.Seat;
 import project.redis.seat.entity.SeatEntity;
 import project.redis.seat.mapper.SeatMapper;
+import project.redis.theater.Theater;
+import project.redis.theater.entity.TheaterEntity;
 
 @Component
 @RequiredArgsConstructor
-public class CinemaMapperImpl implements CinemaMapper {
+public class TheaterMapperImpl implements TheaterMapper {
 
     private final SeatMapper seatMapper;
 
     @Override
-    public Cinema toDomain(CinemaEntity cinemaEntity) {
-        return Cinema.of(cinemaEntity.getCinemaId(), cinemaEntity.getCinemaName());
+    public Theater toDomain(TheaterEntity theaterEntity) {
+        return Theater.of(theaterEntity.getTheaterId(), theaterEntity.getTheaterName());
     }
 
     public List<Seat> convertSeatEntitiesToSeats(List<SeatEntity> seatEntities) {

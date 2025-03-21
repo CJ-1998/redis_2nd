@@ -1,4 +1,4 @@
-package project.redis.cinema;
+package project.redis.theater;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,15 +8,15 @@ import lombok.AllArgsConstructor;
 import project.redis.seat.Seat;
 
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CinemaSeats {
+public class TheaterSeats {
 
     public static final int ROWS = 5;
     public static final int COLUMNS = 5;
 
     private final List<List<Seat>> seats;
 
-    public static CinemaSeats create() {
-        return new CinemaSeats(createSeats());
+    public static TheaterSeats create() {
+        return new TheaterSeats(createSeats());
     }
 
     private static List<List<Seat>> createSeats() {

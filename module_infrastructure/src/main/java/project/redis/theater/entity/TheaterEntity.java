@@ -1,4 +1,4 @@
-package project.redis.cinema.entity;
+package project.redis.theater.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -17,20 +17,20 @@ import lombok.NoArgsConstructor;
 import project.redis.seat.entity.SeatEntity;
 
 @Entity
-@Table(name = "cinema")
+@Table(name = "theater")
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class CinemaEntity {
+public class TheaterEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cinemaId;
+    private Long theaterId;
 
     @Column(nullable = false)
-    private String cinemaName;
+    private String theaterName;
 
-    @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "theater", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SeatEntity> seats;
 }

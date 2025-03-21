@@ -14,8 +14,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project.redis.cinema.entity.CinemaEntity;
 import project.redis.movie.entity.MovieEntity;
+import project.redis.theater.entity.TheaterEntity;
 
 @Entity
 @Table(name = "screening")
@@ -41,5 +41,5 @@ public class ScreeningEntity {
 
     @ManyToOne
     @JoinColumn(name = "cinema_id", nullable = false)  // 영화관과의 관계 설정
-    private CinemaEntity cinema;
+    private TheaterEntity cinema;
 }
