@@ -28,7 +28,7 @@ public class MovieService {
         List<Movie> nowPlayingMovies = findNowPlayingMovies(movies);
 
         List<NowPlayMovieDto> nowPlayMovieDtos = makeNowPlayingMoviesInfo(nowPlayingMovies);
-        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate));
+        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate).reversed());
         return nowPlayMovieDtos;
     }
 
