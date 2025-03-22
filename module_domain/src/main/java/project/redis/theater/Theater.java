@@ -22,4 +22,8 @@ public class Theater {
     public static Theater of(Long theaterId, String theaterName, Cinema cinema, List<Seat> seats) {
         return new Theater(theaterId, theaterName, cinema, TheaterSeats.create(seats));
     }
+
+    public String getCinemaNameOfTheater() {
+        return cinema.getCinemaName();
+    }
 }

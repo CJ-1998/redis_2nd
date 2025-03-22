@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import project.redis.movie.adapter.MovieAdapter;
 import project.redis.movie.dto.NowPlayMovieDto;
 import project.redis.screening.Screening;
 import project.redis.screening.adapter.ScreeningAdapter;
+import project.redis.screening.dto.ScreeningTimeDto;
 
 @Service
 @RequiredArgsConstructor
@@ -50,17 +52,27 @@ public class MovieService {
 
     private Map<String, List<Screening>> mapByCinemaName(List<Screening> movieAllScreening) {
         return movieAllScreening.stream()
-                .collect(Collectors.groupingBy(Screening::getCinemaName));
+                .collect(Collectors.groupingBy(Screening::fetchTheaterAndCinemaName));
     }
 
     private void createNowPlayMovieDtoByMap(Movie movie, Map<String, List<Screening>> cinemaNameScreening,
                                             List<NowPlayMovieDto> nowPlayMovieDtos) {
         for (Map.Entry<String, List<Screening>> entry : cinemaNameScreening.entrySet()) {
-            String cinemaName = entry.getKey();
-            List<Screening> screenings = entry.getValue();
-            NowPlayMovieDto nowPlayMovieDto = NowPlayMovieDto.of(movie, cinemaName, screenings);
+            NowPlayMovieDto nowPlayMovieDto = createNowPlayMovieDtoByEntry(movie, entry);
             nowPlayMovieDtos.add(nowPlayMovieDto);
         }
+    }
+
+    private NowPlayMovieDto createNowPlayMovieDtoByEntry(Movie movie, Entry<String, List<Screening>> entry) {
+        String theaterAndCinemaName = entry.getKey();
+        List<Screening> screenings = entry.getValue();
+        List<ScreeningTimeDto> screeningTimeDtos = convertToScreeningTimeDtos(screenings);
+
+        return NowPlayMovieDto.of(movie, theaterAndCinemaName, screeningTimeDtos);
+    }
+
+    private List<ScreeningTimeDto> convertToScreeningTimeDtos(List<Screening> screenings) {
+        return screenings.stream().map(ScreeningTimeDto::of).toList();
     }
 
 }
