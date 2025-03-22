@@ -2,6 +2,7 @@ package project.redis.movie.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,7 +27,9 @@ public class MovieService {
         List<Movie> movies = movieAdapter.findMovies();
         List<Movie> nowPlayingMovies = findNowPlayingMovies(movies);
 
-        return makeNowPlayingMoviesInfo(nowPlayingMovies);
+        List<NowPlayMovieDto> nowPlayMovieDtos = makeNowPlayingMoviesInfo(nowPlayingMovies);
+        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate));
+        return nowPlayMovieDtos;
     }
 
     private List<Movie> findNowPlayingMovies(List<Movie> movies) {
