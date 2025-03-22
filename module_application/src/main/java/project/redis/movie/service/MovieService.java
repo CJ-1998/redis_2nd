@@ -27,9 +27,7 @@ public class MovieService {
         List<Movie> movies = movieAdapter.findMovies();
         List<Movie> nowPlayingMovies = findNowPlayingMovies(movies);
 
-        List<NowPlayMovieDto> nowPlayMovieDtos = makeNowPlayingMoviesInfo(nowPlayingMovies);
-        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate).reversed());
-        return nowPlayMovieDtos;
+        return makeNowPlayingMoviesInfo(nowPlayingMovies);
     }
 
     private List<Movie> findNowPlayingMovies(List<Movie> movies) {
@@ -50,6 +48,7 @@ public class MovieService {
 
             createNowPlayMovieDtoByMap(movie, cinemaNameScreening, nowPlayMovieDtos);
         }
+        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate).reversed());
         return nowPlayMovieDtos;
     }
 
@@ -69,13 +68,17 @@ public class MovieService {
     private NowPlayMovieDto createNowPlayMovieDtoByEntry(Movie movie, Entry<String, List<Screening>> entry) {
         String theaterAndCinemaName = entry.getKey();
         List<Screening> screenings = entry.getValue();
-        List<ScreeningTimeDto> screeningTimeDtos = convertToScreeningTimeDtos(screenings);
+
+        List<ScreeningTimeDto> screeningTimeDtos = makeScreeningTimeDtos(screenings);
 
         return NowPlayMovieDto.of(movie, theaterAndCinemaName, screeningTimeDtos);
     }
 
-    private List<ScreeningTimeDto> convertToScreeningTimeDtos(List<Screening> screenings) {
-        return screenings.stream().map(ScreeningTimeDto::of).toList();
+    private List<ScreeningTimeDto> makeScreeningTimeDtos(List<Screening> screenings) {
+        List<ScreeningTimeDto> screeningTimeDtos
+                = new ArrayList<>(screenings.stream().map(ScreeningTimeDto::of).toList());
+        screeningTimeDtos.sort(Comparator.comparing(ScreeningTimeDto::getStartTime));
+        return screeningTimeDtos;
     }
 
 }
