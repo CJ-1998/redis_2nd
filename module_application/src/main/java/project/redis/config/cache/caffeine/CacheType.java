@@ -1,4 +1,4 @@
-package project.redis.config.cache;
+package project.redis.config.cache.caffeine;
 
 import lombok.Getter;
 

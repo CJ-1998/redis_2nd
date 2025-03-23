@@ -1,4 +1,4 @@
-package project.redis.config.cache;
+package project.redis.config.cache.caffeine;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import java.util.Arrays;
