@@ -1,15 +1,21 @@
 package project.redis.movie.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project.redis.movie.Movie;
 import project.redis.screening.dto.ScreeningResponseDto;
 import project.redis.screening.dto.ScreeningTimeDto;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class NowPlayMovieDto {
     private String movieName;
     private String movieRate;
@@ -19,22 +25,6 @@ public class NowPlayMovieDto {
     private String movieGenre;
     private String theaterAndCinemaName;
     private List<ScreeningTimeDto> screenings;
-
-    public NowPlayMovieDto() {
-    }
-
-    public NowPlayMovieDto(String movieName, String movieRate, LocalDate movieReleaseDate, String movieThumbnailImage,
-                           Integer movieRunningTime, String movieGenre, String theaterAndCinemaName,
-                           List<ScreeningTimeDto> screenings) {
-        this.movieName = movieName;
-        this.movieRate = movieRate;
-        this.movieReleaseDate = movieReleaseDate;
-        this.movieThumbnailImage = movieThumbnailImage;
-        this.movieRunningTime = movieRunningTime;
-        this.movieGenre = movieGenre;
-        this.theaterAndCinemaName = theaterAndCinemaName;
-        this.screenings = screenings;
-    }
 
     public static NowPlayMovieDto of(Movie movie, String theaterAndCinemaName, List<ScreeningTimeDto> screenings) {
         return NowPlayMovieDto.builder()
@@ -61,5 +51,10 @@ public class NowPlayMovieDto {
                 .theaterAndCinemaName(screeningResponseDto.getCinemaAndTheaterName())
                 .screenings(screenings)
                 .build();
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    public LocalDate getMovieReleaseDate() {
+        return movieReleaseDate;
     }
 }

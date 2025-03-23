@@ -3,30 +3,24 @@ package project.redis.screening.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import project.redis.screening.Screening;
 
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ScreeningTimeDto {
 
     private static final String TIME_RANGE_SEPARATOR = " ~ ";
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
     private String screeningTime;
-
-    public ScreeningTimeDto() {
-    }
-
-    public ScreeningTimeDto(LocalDateTime startTime, LocalDateTime endTime, String screeningTime) {
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.screeningTime = screeningTime;
-    }
 
     public static ScreeningTimeDto of(Screening screening) {
         LocalDateTime startTime = screening.getStartedAt();
@@ -55,5 +49,15 @@ public class ScreeningTimeDto {
         String screeningStartedAt = startTime.format(formatter);
         String screeningEndAt = endTime.format(formatter);
         return screeningStartedAt + TIME_RANGE_SEPARATOR + screeningEndAt;
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 }
