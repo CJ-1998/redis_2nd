@@ -2,27 +2,30 @@ package project.redis.screening.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import java.time.LocalDate;
-import java.util.List;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import project.redis.movie.MovieGenre;
 import project.redis.movie.MovieRate;
 
 @Getter
 public class ScreeningResponseDto {
-    private String movieTitle;
-    private MovieRate rating;
-    private LocalDate releasedAt;
-    private String thumbnail;
-    private Integer duration;
-    private MovieGenre genre;
-    private String cinemaName;
-    private String theaterName;
-    private List<String> screeningTimes; // startedAt ~ endedAt 리스트
+    private final String movieTitle;
+    private final MovieRate rating;
+    private final LocalDate releasedAt;
+    private final String thumbnail;
+    private final Integer duration;
+    private final MovieGenre genre;
+    private final String cinemaName;
+    private final String theaterName;
+    private final String cinemaAndTheaterName;
+    private final LocalDateTime startedAt;
+    private final LocalDateTime endedAt;
 
     @QueryProjection
-    public ScreeningResponseDto(String movieTitle, MovieRate rating,
-                                LocalDate releasedAt, String thumbnail, Integer duration,
-                                MovieGenre genre, String cinemaName, String theaterName, List<String> screeningTimes) {
+    public ScreeningResponseDto(String movieTitle, MovieRate rating, LocalDate releasedAt,
+                                String thumbnail, Integer duration, MovieGenre genre,
+                                String cinemaName, String theaterName, String cinemaAndTheaterName,
+                                LocalDateTime startedAt, LocalDateTime endedAt) {
         this.movieTitle = movieTitle;
         this.rating = rating;
         this.releasedAt = releasedAt;
@@ -31,7 +34,9 @@ public class ScreeningResponseDto {
         this.genre = genre;
         this.cinemaName = cinemaName;
         this.theaterName = theaterName;
-        this.screeningTimes = screeningTimes;
+        this.cinemaAndTheaterName = cinemaAndTheaterName;
+        this.startedAt = startedAt;
+        this.endedAt = endedAt;
     }
 
     @Override
@@ -45,7 +50,9 @@ public class ScreeningResponseDto {
                 ", genre=" + genre +
                 ", cinemaName='" + cinemaName + '\'' +
                 ", theaterName='" + theaterName + '\'' +
-                ", screeningTimes=" + screeningTimes +
+                ", cinemaAndTheaterName='" + cinemaAndTheaterName + '\'' +
+                ", startedAt=" + startedAt +
+                ", endedAt=" + endedAt +
                 '}';
     }
 }

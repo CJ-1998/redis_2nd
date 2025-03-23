@@ -6,11 +6,9 @@ import static project.redis.screening.entity.QScreeningEntity.screeningEntity;
 import static project.redis.theater.entity.QTheaterEntity.theaterEntity;
 
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.group.GroupBy;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.redis.movie.MovieGenre;
@@ -28,16 +26,8 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                                                                  LocalDate today) {
         BooleanBuilder builder = createBooleanBuilder(movieTitle, movieGenre, today);
 
-        // QueryDSL을 사용한 상영관 별 영화 리스트 그룹화
-        Map<Long, ScreeningResponseDto> result = jpaQueryFactory
-                .from(screeningEntity)
-                .join(screeningEntity.movie, movieEntity)
-                .join(screeningEntity.theater, theaterEntity)
-                .join(theaterEntity.cinema, cinemaEntity)
-                .where(builder)
-                .orderBy(movieEntity.releasedAt.desc(),
-                        screeningEntity.startedAt.asc()) // ✅ releasedAt 최신순 + startedAt 오름차순 정렬
-                .transform(GroupBy.groupBy(theaterEntity.theaterId).as(
+        return jpaQueryFactory
+                .select(
                         new QScreeningResponseDto(
                                 movieEntity.title,
                                 movieEntity.rating,
@@ -47,15 +37,19 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                                 movieEntity.genre,
                                 cinemaEntity.cinemaName,
                                 theaterEntity.theaterName,
-                                GroupBy.list(
-                                        screeningEntity.startedAt.stringValue()
-                                                .concat(" ~ ")
-                                                .concat(screeningEntity.endedAt.stringValue())
-                                )
+                                cinemaEntity.cinemaName.concat(" ").concat(theaterEntity.theaterName),
+                                screeningEntity.startedAt,
+                                screeningEntity.endedAt
                         )
-                ));
-
-        return List.copyOf(result.values());
+                )
+                .from(screeningEntity)
+                .join(screeningEntity.movie, movieEntity)
+                .join(screeningEntity.theater, theaterEntity)
+                .join(theaterEntity.cinema, cinemaEntity)
+                .where(movieEntity.releasedAt.before(today))  // 현재 날짜보다 이전인 영화만
+                .orderBy(movieEntity.releasedAt.desc(),
+                        screeningEntity.startedAt.asc())  // duration 긴 순서, startedAt 빠른 순서
+                .fetch();
     }
 
     private BooleanBuilder createBooleanBuilder(String movieTitle, MovieGenre movieGenre, LocalDate today) {
