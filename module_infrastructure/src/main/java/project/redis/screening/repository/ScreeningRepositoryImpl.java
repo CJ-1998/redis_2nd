@@ -46,7 +46,7 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
                 .join(screeningEntity.movie, movieEntity)
                 .join(screeningEntity.theater, theaterEntity)
                 .join(theaterEntity.cinema, cinemaEntity)
-                .where(movieEntity.releasedAt.before(today))  // 현재 날짜보다 이전인 영화만
+                .where(builder)  // 현재 날짜보다 이전인 영화만
                 .orderBy(movieEntity.releasedAt.desc(),
                         screeningEntity.startedAt.asc())  // duration 긴 순서, startedAt 빠른 순서
                 .fetch();
