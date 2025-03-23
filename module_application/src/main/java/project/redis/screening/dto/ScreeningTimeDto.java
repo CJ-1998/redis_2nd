@@ -20,18 +20,31 @@ public class ScreeningTimeDto {
     private String screeningTime;
 
     public static ScreeningTimeDto of(Screening screening) {
-        String screeningTime = createScreeningTime(screening);
+        LocalDateTime startTime = screening.getStartedAt();
+        LocalDateTime endTime = screening.getEndedAt();
+        String screeningTime = createScreeningTime(startTime, endTime);
         return ScreeningTimeDto.builder()
-                .startTime(screening.getStartedAt())
-                .endTime(screening.getEndedAt())
+                .startTime(startTime)
+                .endTime(endTime)
                 .screeningTime(screeningTime)
                 .build();
     }
 
-    private static String createScreeningTime(Screening screening) {
+    public static ScreeningTimeDto createByQueryDto(ScreeningResponseDto screeningResponseDto) {
+        LocalDateTime startTime = screeningResponseDto.getStartedAt();
+        LocalDateTime endTime = screeningResponseDto.getEndedAt();
+        String screeningTime = createScreeningTime(startTime, endTime);
+        return ScreeningTimeDto.builder()
+                .startTime(startTime)
+                .endTime(endTime)
+                .screeningTime(screeningTime)
+                .build();
+    }
+
+    private static String createScreeningTime(LocalDateTime startTime, LocalDateTime endTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String screeningStartedAt = screening.getStartedAt().format(formatter);
-        String screeningEndAt = screening.getEndedAt().format(formatter);
+        String screeningStartedAt = startTime.format(formatter);
+        String screeningEndAt = endTime.format(formatter);
         return screeningStartedAt + TIME_RANGE_SEPARATOR + screeningEndAt;
     }
 }

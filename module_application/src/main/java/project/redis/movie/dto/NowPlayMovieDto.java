@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Builder;
 import lombok.Getter;
 import project.redis.movie.Movie;
+import project.redis.screening.dto.ScreeningResponseDto;
 import project.redis.screening.dto.ScreeningTimeDto;
 
 @Getter
@@ -28,6 +29,20 @@ public class NowPlayMovieDto {
                 .movieRunningTime(movie.getDuration())
                 .movieGenre(movie.getGenre().getMovieGenreDescription())
                 .theaterAndCinemaName(theaterAndCinemaName)
+                .screenings(screenings)
+                .build();
+    }
+
+    public static NowPlayMovieDto createByQueryDto(ScreeningResponseDto screeningResponseDto,
+                                                   List<ScreeningTimeDto> screenings) {
+        return NowPlayMovieDto.builder()
+                .movieName(screeningResponseDto.getMovieTitle())
+                .movieRate(screeningResponseDto.getRating().getMovieRateDescription())
+                .movieReleaseDate(screeningResponseDto.getReleasedAt())
+                .movieThumbnailImage(screeningResponseDto.getThumbnail())
+                .movieRunningTime(screeningResponseDto.getDuration())
+                .movieGenre(screeningResponseDto.getGenre().getMovieGenreDescription())
+                .theaterAndCinemaName(screeningResponseDto.getCinemaAndTheaterName())
                 .screenings(screenings)
                 .build();
     }
