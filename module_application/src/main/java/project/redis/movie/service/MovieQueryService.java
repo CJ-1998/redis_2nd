@@ -19,9 +19,15 @@ public class MovieQueryService {
 
     private final ScreeningRepositoryCustom screeningRepository;
 
-    public List<NowPlayMovieDto> getNowPlayingMovies(String movieTitle, MovieGenre movieGenre) {
+    public List<NowPlayMovieDto> getNowPlayingMovies(String movieTitle, String movieGenre) {
+        MovieGenre movieGenreEnum = null;
+
+        if (movieGenre != null) {
+            movieGenreEnum = MovieGenre.valueOf(movieGenre);
+        }
+
         List<ScreeningResponseDto> moviesGroupedByTheater
-                = screeningRepository.findMoviesGroupedByTheater(movieTitle, movieGenre, LocalDate.now());
+                = screeningRepository.findMoviesGroupedByTheater(movieTitle, movieGenreEnum, LocalDate.now());
 
         Map<String, Map<String, List<ScreeningResponseDto>>> groupedByMovieAndTheater = moviesGroupedByTheater.stream()
                 .collect(Collectors.groupingBy(
