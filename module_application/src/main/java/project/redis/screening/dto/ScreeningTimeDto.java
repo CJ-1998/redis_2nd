@@ -19,6 +19,15 @@ public class ScreeningTimeDto {
     private LocalDateTime endTime;
     private String screeningTime;
 
+    public ScreeningTimeDto() {
+    }
+
+    public ScreeningTimeDto(LocalDateTime startTime, LocalDateTime endTime, String screeningTime) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.screeningTime = screeningTime;
+    }
+
     public static ScreeningTimeDto of(Screening screening) {
         LocalDateTime startTime = screening.getStartedAt();
         LocalDateTime endTime = screening.getEndedAt();

@@ -20,7 +20,8 @@ public class MovieQueryService {
 
     private final ScreeningRepositoryCustom screeningRepository;
 
-    @Cacheable(cacheNames = "movieCache")
+    // @Cacheable(cacheNames = "movieCache")
+    @Cacheable(cacheNames = "redisCache")
     public List<NowPlayMovieDto> getNowPlayingMovies(String movieTitle, String movieGenre) {
         MovieGenre movieGenreEnum = null;
 

@@ -20,6 +20,22 @@ public class NowPlayMovieDto {
     private String theaterAndCinemaName;
     private List<ScreeningTimeDto> screenings;
 
+    public NowPlayMovieDto() {
+    }
+
+    public NowPlayMovieDto(String movieName, String movieRate, LocalDate movieReleaseDate, String movieThumbnailImage,
+                           Integer movieRunningTime, String movieGenre, String theaterAndCinemaName,
+                           List<ScreeningTimeDto> screenings) {
+        this.movieName = movieName;
+        this.movieRate = movieRate;
+        this.movieReleaseDate = movieReleaseDate;
+        this.movieThumbnailImage = movieThumbnailImage;
+        this.movieRunningTime = movieRunningTime;
+        this.movieGenre = movieGenre;
+        this.theaterAndCinemaName = theaterAndCinemaName;
+        this.screenings = screenings;
+    }
+
     public static NowPlayMovieDto of(Movie movie, String theaterAndCinemaName, List<ScreeningTimeDto> screenings) {
         return NowPlayMovieDto.builder()
                 .movieName(movie.getTitle())
