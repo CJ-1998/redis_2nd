@@ -11,11 +11,11 @@ repositories {
     mavenCentral()
 }
 
-bootJar{
+bootJar {
     enabled = true
 }
 
-jar{
+jar {
     enabled = false
 }
 
@@ -23,6 +23,7 @@ dependencies {
     implementation project(':module_application')
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
