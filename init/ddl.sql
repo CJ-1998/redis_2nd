@@ -63,3 +63,7 @@ CREATE TABLE IF NOT EXISTS theater (
     updated_at DATETIME NULL,          -- BaseEntity 필드
     FOREIGN KEY (cinema_id) REFERENCES cinema(cinema_id) ON DELETE CASCADE  -- 영화관 외래키
 );
+
+CREATE INDEX idx_movie_released_title_genre ON movie(released_at, title, genre);
+CREATE INDEX idx_screening_started_at ON screening(started_at);
+
