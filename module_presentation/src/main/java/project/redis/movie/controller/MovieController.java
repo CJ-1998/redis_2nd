@@ -21,10 +21,10 @@ public class MovieController {
 
     @GetMapping("/now-playing")
     public ResponseEntity<List<NowPlayMovieDto>> getNowPlayingMovies(
-            @RequestParam(required = false, name = "movieTitle")
+            @RequestParam(required = false, name = "movie-title")
             @Size(max = 255, message = "Title length must not exceed 255 characters")
             String movieTitle,
-            @RequestParam(required = false, name = "movieGenre")
+            @RequestParam(required = false, name = "movie-genre")
             String movieGenre) {
         List<NowPlayMovieDto> nowPlayMovieDtos = movieQueryService.getNowPlayingMovies(movieTitle, movieGenre);
         // List<NowPlayMovieDto> nowPlayMovieDtos = movieService.getNowPlayingMovies();
