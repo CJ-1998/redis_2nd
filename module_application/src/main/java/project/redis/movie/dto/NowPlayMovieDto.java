@@ -17,23 +17,23 @@ import project.redis.screening.dto.ScreeningTimeDto;
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class NowPlayMovieDto {
-    private String movieName;
-    private String movieRate;
-    private LocalDate movieReleaseDate;
-    private String movieThumbnailImage;
-    private Integer movieRunningTime;
-    private String movieGenre;
+    private String title;
+    private String rating;
+    private LocalDate releasedAt;
+    private String thumbnail;
+    private Integer runningTime;
+    private String genre;
     private String theaterAndCinemaName;
     private List<ScreeningTimeDto> screenings;
 
     public static NowPlayMovieDto of(Movie movie, String theaterAndCinemaName, List<ScreeningTimeDto> screenings) {
         return NowPlayMovieDto.builder()
-                .movieName(movie.getTitle())
-                .movieRate(movie.getRating().getMovieRateDescription())
-                .movieReleaseDate(movie.getReleasedAt())
-                .movieThumbnailImage(movie.getThumbnail())
-                .movieRunningTime(movie.getDuration())
-                .movieGenre(movie.getGenre().getMovieGenreDescription())
+                .title(movie.getTitle())
+                .rating(movie.getRating().getMovieRateDescription())
+                .releasedAt(movie.getReleasedAt())
+                .thumbnail(movie.getThumbnail())
+                .runningTime(movie.getDuration())
+                .genre(movie.getGenre().getMovieGenreDescription())
                 .theaterAndCinemaName(theaterAndCinemaName)
                 .screenings(screenings)
                 .build();
@@ -42,19 +42,19 @@ public class NowPlayMovieDto {
     public static NowPlayMovieDto createByQueryDto(ScreeningResponseDto screeningResponseDto,
                                                    List<ScreeningTimeDto> screenings) {
         return NowPlayMovieDto.builder()
-                .movieName(screeningResponseDto.getMovieTitle())
-                .movieRate(screeningResponseDto.getRating().getMovieRateDescription())
-                .movieReleaseDate(screeningResponseDto.getReleasedAt())
-                .movieThumbnailImage(screeningResponseDto.getThumbnail())
-                .movieRunningTime(screeningResponseDto.getDuration())
-                .movieGenre(screeningResponseDto.getGenre().getMovieGenreDescription())
+                .title(screeningResponseDto.getMovieTitle())
+                .rating(screeningResponseDto.getRating().getMovieRateDescription())
+                .releasedAt(screeningResponseDto.getReleasedAt())
+                .thumbnail(screeningResponseDto.getThumbnail())
+                .runningTime(screeningResponseDto.getDuration())
+                .genre(screeningResponseDto.getGenre().getMovieGenreDescription())
                 .theaterAndCinemaName(screeningResponseDto.getCinemaAndTheaterName())
                 .screenings(screenings)
                 .build();
     }
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public LocalDate getMovieReleaseDate() {
-        return movieReleaseDate;
+    public LocalDate getReleasedAt() {
+        return releasedAt;
     }
 }

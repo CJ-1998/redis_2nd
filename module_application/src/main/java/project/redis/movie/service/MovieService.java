@@ -48,7 +48,7 @@ public class MovieService {
 
             createNowPlayMovieDtoByMap(movie, cinemaNameScreening, nowPlayMovieDtos);
         }
-        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate).reversed());
+        nowPlayMovieDtos.sort(Comparator.comparing(NowPlayMovieDto::getReleasedAt).reversed());
         return nowPlayMovieDtos;
     }
 

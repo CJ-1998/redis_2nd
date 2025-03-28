@@ -55,7 +55,7 @@ public class MovieQueryService {
         return groupedByMovieAndTheater.values().stream()
                 .map(this::convertToNowPlayMovieDtos)
                 .flatMap(List::stream)
-                .sorted(Comparator.comparing(NowPlayMovieDto::getMovieReleaseDate).reversed())
+                .sorted(Comparator.comparing(NowPlayMovieDto::getReleasedAt).reversed())
                 .collect(Collectors.toList());
     }
 
