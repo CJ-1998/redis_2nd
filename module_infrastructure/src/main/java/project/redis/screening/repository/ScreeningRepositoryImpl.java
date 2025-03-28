@@ -22,8 +22,8 @@ public class ScreeningRepositoryImpl implements ScreeningRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<ScreeningResponseDto> findMoviesGroupedByTheater(String movieTitle, MovieGenre movieGenre,
-                                                                 LocalDate today) {
+    public List<ScreeningResponseDto> findNowPlayMoviesByQuery(String movieTitle, MovieGenre movieGenre,
+                                                               LocalDate today) {
         BooleanBuilder builder = createBooleanBuilder(movieTitle, movieGenre, today);
 
         return jpaQueryFactory

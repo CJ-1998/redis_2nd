@@ -6,5 +6,5 @@ import project.redis.movie.MovieGenre;
 import project.redis.screening.dto.ScreeningResponseDto;
 
 public interface ScreeningRepositoryCustom {
-    List<ScreeningResponseDto> findMoviesGroupedByTheater(String movieTitle, MovieGenre movieGenre, LocalDate today);
+    List<ScreeningResponseDto> findNowPlayMoviesByQuery(String movieTitle, MovieGenre movieGenre, LocalDate today);
 }

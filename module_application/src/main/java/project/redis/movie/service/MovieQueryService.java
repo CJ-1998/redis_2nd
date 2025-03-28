@@ -25,13 +25,16 @@ public class MovieQueryService {
     public List<NowPlayMovieDto> getNowPlayingMovies(String movieTitle, String movieGenre) {
         MovieGenre movieGenreEnum = getMovieGenre(movieGenre);
 
-        List<ScreeningResponseDto> moviesGroupedByTheater
-                = screeningRepository.findMoviesGroupedByTheater(movieTitle, movieGenreEnum, LocalDate.now());
+        List<ScreeningResponseDto> nowPlayingMovies
+                = screeningRepository.findNowPlayMoviesByQuery(movieTitle, movieGenreEnum, LocalDate.now());
 
-        Map<String, Map<String, List<ScreeningResponseDto>>> groupedByMovieAndTheater
-                = mapMovieInfoByMovieAndTheater(moviesGroupedByTheater);
+        Map<String, List<ScreeningResponseDto>> nowPlayingMoviesGroupedByTitle
+                = getNowPlayingMoviesGroupedByTitle(nowPlayingMovies);
 
-        return extractNowPlayMovieDtos(groupedByMovieAndTheater);
+        Map<String, List<ScreeningResponseDto>> nowPlayingMoviesGroupedByTitleAndTheater
+                = getNowPlayingMoviesGroupedByTitleAndTheater(nowPlayingMoviesGroupedByTitle);
+
+        return makeNowPlayMovieDtos(nowPlayingMoviesGroupedByTitleAndTheater);
     }
 
     private MovieGenre getMovieGenre(String movieGenre) {
@@ -43,36 +46,34 @@ public class MovieQueryService {
         return movieGenreEnum;
     }
 
-    private Map<String, Map<String, List<ScreeningResponseDto>>> mapMovieInfoByMovieAndTheater(
-            List<ScreeningResponseDto> moviesGroupedByTheater) {
-        return moviesGroupedByTheater.stream()
-                .collect(Collectors.groupingBy(ScreeningResponseDto::getMovieTitle,
-                        Collectors.groupingBy(ScreeningResponseDto::getCinemaAndTheaterName)));
+    private static Map<String, List<ScreeningResponseDto>> getNowPlayingMoviesGroupedByTitle(
+            List<ScreeningResponseDto> nowPlayingMovies) {
+        return nowPlayingMovies.stream().collect(Collectors.groupingBy(ScreeningResponseDto::getMovieTitle));
     }
 
-    private List<NowPlayMovieDto> extractNowPlayMovieDtos(
-            Map<String, Map<String, List<ScreeningResponseDto>>> groupedByMovieAndTheater) {
-        return groupedByMovieAndTheater.values().stream()
-                .map(this::convertToNowPlayMovieDtos)
+    private static Map<String, List<ScreeningResponseDto>> getNowPlayingMoviesGroupedByTitleAndTheater(
+            Map<String, List<ScreeningResponseDto>> nowPlayingMoviesGroupedByTitle) {
+        return nowPlayingMoviesGroupedByTitle.values().stream()
                 .flatMap(List::stream)
+                .collect(Collectors.groupingBy(ScreeningResponseDto::getCinemaAndTheaterName));
+    }
+
+    private List<NowPlayMovieDto> makeNowPlayMovieDtos(
+            Map<String, List<ScreeningResponseDto>> nowPlayingMoviesGroupedByTitleAndTheater) {
+        return nowPlayingMoviesGroupedByTitleAndTheater.values().stream()
+                .map(this::makeNowPlayMovieDto)
                 .sorted(Comparator.comparing(NowPlayMovieDto::getReleasedAt).reversed())
                 .collect(Collectors.toList());
     }
 
-    private List<NowPlayMovieDto> convertToNowPlayMovieDtos(Map<String, List<ScreeningResponseDto>> stringListMap) {
-        return stringListMap.values().stream()
-                .map(this::createNowPlayMovieDto)
-                .collect(Collectors.toList());
+    private NowPlayMovieDto makeNowPlayMovieDto(List<ScreeningResponseDto> screeningInfos) {
+        List<ScreeningTimeDto> screeningTimeDto = convertToScreeningTimeDto(screeningInfos);
+        ScreeningResponseDto screeningResponseDto = screeningInfos.get(0);
+        return NowPlayMovieDto.createByQueryDto(screeningResponseDto, screeningTimeDto);
     }
 
-    private NowPlayMovieDto createNowPlayMovieDto(List<ScreeningResponseDto> screenings) {
-        List<ScreeningTimeDto> screeningTimeDtos = convertToScreeningTimeDtos(screenings);
-        ScreeningResponseDto screeningResponseDto = screenings.get(0);
-        return NowPlayMovieDto.createByQueryDto(screeningResponseDto, screeningTimeDtos);
-    }
-
-    private List<ScreeningTimeDto> convertToScreeningTimeDtos(List<ScreeningResponseDto> screenings) {
-        return screenings.stream()
+    private List<ScreeningTimeDto> convertToScreeningTimeDto(List<ScreeningResponseDto> screeningInfos) {
+        return screeningInfos.stream()
                 .map(ScreeningTimeDto::createByQueryDto)
                 .sorted(Comparator.comparing(ScreeningTimeDto::getStartTime))
                 .collect(Collectors.toList());
