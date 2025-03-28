@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+# QueryDSL에서 생성된 파일 제외
+/module_infrastructure/src/main/generated/
